@@ -1,0 +1,194 @@
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-md-12 text-center">
+      <h6>Contact Management</h6>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12 text-end">
+      <button class="btn" (click)="openContactModal()"><i class="fa fa-plus me-2 hand"></i><span>New
+          Contact</span></button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="row">
+        <div class="col-md-12">
+          <h6>Search Email ID</h6>
+          <div class="search-container mb-4">
+            <input type="text" class="search-input" [(ngModel)]="searchTxt">
+            <div class="search-icon" (click)="searchContactData()">
+              <i class="fa fa-search"></i>
+            </div>
+          </div>
+          <h6>Contact Directory</h6>
+          <div class="card" id="cardDesign">
+            <div class="card-body">
+              <ng-container *ngFor="let contact of filteredContactList">
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="row">
+                      <div class="col-md-1">
+                        <i class="fa fa-pencil-square-o text-primary fa-lg hand" (click)="onEdit(contact)"></i>
+                      </div>
+                      <div class="col-md-11">
+                        <span class="fName">{{contact.firstName}}</span>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-1">
+                        <i class="fa fa-close text-danger fa-lg hand" (click)="onDelete(contact)"></i>
+                      </div>
+                      <div class="col-md-11">
+                        <span class="email">{{contact.email}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <i class="fa fa-star-o fa-2x mt-3 hand" [style]="{'color': contact.starColor}"
+                      (click)="addToFavorite(contact)">
+                    </i>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="vertical-dotted-line"></div>
+    </div>
+
+    <div class="col-md-5">
+      <div class="row">
+        <div class="col-md-12">
+          <h6>Favorite</h6>
+          <div class="card" id="cardDesign2">
+            <div class="card-body">
+              <ng-container *ngFor="let contact of favoriteContacts">
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <span class="fName">{{contact.firstName}}</span>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-12">
+                        <span class="email">{{contact.email}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <i class="fa fa-close text-danger fa-lg hand" (click)="removeFromFavorites(contact)">
+                    </i>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal starts -->
+  <div class="row">
+    <div class="col-md-12">
+      <form #contactForm="ngForm">
+        <p-dialog header="New Contact" [(visible)]="displayModalContact" [modal]="true" [style]="{width: '42vw'}"
+          [breakpoints]="{'960px': '75vw', '640px': '95vw'}" styleClass="custom-dialog" [baseZIndex]="10000"
+          [draggable]="false" [resizable]="false">
+          <div class="row">
+            <div class="col-md-6">
+              <label class="my-1">First Name*</label>
+              <input type="text" id="float-input" class="form-control" name="firstName" #firstName="ngModel"
+                [(ngModel)]="contactObj.firstName" required pInputText>
+              <div class="validation-error" *ngIf="firstName.touched || firstName.dirty">
+                <div *ngIf="firstName.errors?.['required']">This field is required</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="my-1">Last Name*</label>
+              <input type="text" id="float-input" class="form-control" name="lastName" #lastName="ngModel"
+                [(ngModel)]="contactObj.lastName" required pInputText>
+              <div class="validation-error" *ngIf="lastName.touched || lastName.dirty">
+                <div *ngIf="lastName.errors?.['required']">This field is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <label class="my-1">Email Address*</label>
+              <input type="text" id="float-input" class="form-control" name="email" #email="ngModel"
+                [(ngModel)]="contactObj.email" required [pattern]="emailPattern" pInputText>
+              <div class="validation-error" *ngIf="email.touched || email.dirty">
+                <div *ngIf="email.errors?.['required']">This field is required</div>
+                <div *ngIf="email.errors?.['pattern']">Please enter a valid email address</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="my-1">User Name*</label>
+              <input type="text" id="float-input" class="form-control" name="username" #username="ngModel"
+                [(ngModel)]="contactObj.username" required pInputText>
+              <div class="validation-error" *ngIf="username.touched || username.dirty">
+                <div *ngIf="username.errors?.['required']">This field is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <label class="my-1">Password*</label>
+              <input type="text" id="float-input" class="form-control" name="password" #password="ngModel"
+                [(ngModel)]="contactObj.password" required pInputText>
+              <div class="validation-error" *ngIf="password.touched || password.dirty">
+                <div *ngIf="password.errors?.['required']">This field is required</div>
+                <div *ngIf="password.errors?.['minlength']">Password must be at least 6 characters long</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="my-1">Confirm Password</label>
+              <input type="text" id="float-input" class="form-control" name="confirmPassword" #confirmPassword="ngModel"
+                [(ngModel)]="contactObj.confirmPassword" required pInputText>
+              <div class="validation-error" *ngIf="confirmPassword.touched || confirmPassword.dirty">
+                <div *ngIf="confirmPassword.errors?.['required']">This field is required</div>
+                <div *ngIf="contactObj.confirmPassword !== contactObj.password">Passwords do not match</div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <label class="my-1">Phone No.*</label>
+              <input type="text" id="float-input" class="form-control" name="phoneNo" #phoneNo="ngModel"
+                [(ngModel)]="contactObj.phoneNo" [pattern]="phonePattern" required pInputText>
+              <div class="validation-error" *ngIf="phoneNo.touched || phoneNo.dirty">
+                <div *ngIf="phoneNo.errors?.['required']">This field is required</div>
+                <div *ngIf="phoneNo.errors?.['pattern']">Please, Enter 10 digit Mobile Number.</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="my-1">Address*</label>
+              <textarea class="form-control" name="address" #address="ngModel" [(ngModel)]="contactObj.address" required
+                pInputTextarea [autoResize]="true"></textarea>
+              <div class="validation-error" *ngIf="address.touched || address.dirty">
+                <div *ngIf="address.errors?.['required']">This field is required</div>
+              </div>
+            </div>
+          </div>
+          <ng-template pTemplate="footer">
+            <button pButton pRipple icon="pi pi-times" class="discardBtn p-button-sm" label="Discard"
+              (click)="onCancel()"></button>
+            <button pButton pRipple class="p-button-sm saveBtn" label="Submit" (click)="onSaveContact()"
+              *ngIf="contactObj.id == 0" [disabled]="contactForm.invalid">
+            </button>
+            <button pButton pRipple class="p-button-warning p-button-sm" label="Update" (click)="onUpdateContact()"
+              *ngIf="contactObj.id !== 0">
+            </button>
+          </ng-template>
+        </p-dialog>
+      </form>
+    </div>
+  </div>
+  <!-- modal ends -->
+</div>

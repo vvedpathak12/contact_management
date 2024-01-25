@@ -1,0 +1,115 @@
+.fa-plus {
+  background: rgba(32, 100, 132) !important;
+  color: #fff;
+  border-radius: 50%;
+  padding: 8px 10px 8px 10px;
+}
+
+span {
+  color: rgb(43, 112, 145) !important;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+#cardDesign {
+  border: 2px solid rgba(32, 100, 132) !important;
+  border-radius: 10px;
+  min-height: 400px;
+}
+
+#cardDesign .card-body {
+  padding: 10px 0px 10px 30px;
+}
+
+#cardDesign2 {
+  border: 2px solid rgba(32, 100, 132) !important;
+  border-radius: 10px;
+  min-height: 500px;
+}
+
+#cardDesign2 .card-body {
+  padding: 10px 0px 10px 30px;
+}
+
+.btn {
+  border: none;
+}
+
+label {
+  font-weight: 500;
+}
+
+.fName {
+  color: rgb(65, 62, 62) !important;
+  font-size: 20px;
+  margin-left: 15px;
+  text-transform: capitalize;
+}
+
+.email {
+  color: rgb(124, 122, 122) !important;
+  font-size: 16px;
+  margin-left: 15px;
+}
+
+.vertical-dotted-line {
+  border-left: 3px dashed rgb(16, 76, 104);
+  min-height: 550px;
+  margin-left: 95px;
+}
+
+.favorite {
+  color: yellow !important;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid rgba(32, 100, 132);
+  border-radius: 5px;
+}
+
+.search-input:focus {
+  border: 2px solid rgb(10, 65, 91) !important;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.saveBtn {
+  border-radius: 0;
+  background: rgb(10, 65, 91);
+}
+
+.saveBtn:hover {
+  border-radius: 0;
+  background: rgb(10, 65, 91);
+}
+
+.discardBtn {
+  border-radius: 0;
+  border-color: rgb(10, 65, 91);
+  color: rgb(10, 65, 91);
+  background: #fff;
+}
+
+.discardBtn:hover {
+  border-radius: 0;
+  border-color: rgb(10, 65, 91);
+  color: rgb(10, 65, 91);
+  background: #fff;
+}
